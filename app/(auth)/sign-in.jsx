@@ -17,11 +17,15 @@ export default function SignInScreen() {
   const handleSignIn = () => {
     console.log('Sign In pressed');
     // Add your sign in logic here
+    console.log({
+      email,
+      password,
+    })
   };
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 px-6 pt-24">
+      <View className="flex-1 px-6 pt-32">
         {/* Header */}
         <View className="items-center mb-10">
           <Text className="text-2xl font-semibold text-teal-400 mb-2">Welcome</Text>
