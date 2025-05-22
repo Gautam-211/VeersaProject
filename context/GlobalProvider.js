@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const GlobalContext = createContext();
 
@@ -12,25 +12,23 @@ const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // useEffect(() => {
-    // getCurrentUser()
-    //     .then((res) => {
-    //         if(res){
-    //             setUser(res);
-    //             setIsLoggedIn(true);
-    //         }
-    //         else{
-    //             setIsLoggedIn(false);
-    //             setUser(null);
-    //         }
-    //     }) 
-    //     .catch((error) => {
-    //         console.log("error", error);
-    //     })
-    //     .finally(() => {
-    //         setIsLoading(false);
-    //     })
-  // }, []);
+//   useEffect(() => {
+//   const loadUser = async () => {
+//     try {
+//       const storedUser = await AsyncStorage.getItem('user');
+//       if (storedUser) {
+//         setUser(JSON.parse(storedUser));
+//         setIsLoggedIn(true);
+//       }
+//     } catch (err) {
+//       console.log("Auto-login error", err);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   loadUser();
+// }, []);
 
   return (
     <GlobalContext.Provider value={{ 

@@ -5,9 +5,10 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  ScrollView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, router } from 'expo-router';
 
 export default function SignUpScreen() {
   const [fullName, setFullName] = useState('');
@@ -17,21 +18,50 @@ export default function SignUpScreen() {
   const [address, setAddress] = useState(''); // Added address state
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSignUp = () => {
-    console.log('Sign Up pressed');
-    // Add your sign up logic here
-    console.log({
-      fullName,
-      password,
-      email,
-      mobileNumber,
-      address, // Included in log for testing
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSignUp = async () => {
+    setIsLoading(true);
+  try {
+    const response = await fetch('https://veersa-backend.onrender.com/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        name: fullName,
+        email: email,
+        password: password,
+        phone: mobileNumber,
+        address: address,
+      }),
     });
-  };
+
+    const data = await response.json();
+
+    if (response.ok) {
+    //   console.log('Signup successful:', data);
+      // You can navigate to another screen or store the token here
+      alert('Signup successful!');
+      router.replace('/sign-in'); // Redirect to sign-in page after successful signup
+    } else {
+      console.error('Signup failed:', data);
+      alert(data.message || 'Signup failed. Please try again.');
+    }
+  } catch (error) {
+    console.error('Error during signup:', error);
+    alert('An error occurred. Please try again later.');
+  }
+  finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 px-6 pt-32">
+        <ScrollView>
+      <View className="flex-1 px-6 pt-16">
         {/* Header */}
         <View className="items-center mb-10">
           <Text className="text-2xl font-semibold text-teal-400 text-center">
@@ -134,6 +164,8 @@ export default function SignUpScreen() {
         <TouchableOpacity
           className="bg-teal-400 h-12 rounded-lg justify-center items-center mb-8"
           onPress={handleSignUp}
+          disabled={isLoading}
+          style={{ opacity: isLoading ? 0.4 : 1 }}
         >
           <Text className="text-base font-semibold text-white">Sign Up</Text>
         </TouchableOpacity>
@@ -148,6 +180,7 @@ export default function SignUpScreen() {
           </TouchableOpacity>
         </View>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }

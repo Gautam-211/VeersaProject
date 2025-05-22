@@ -7,21 +7,56 @@ import {
   SafeAreaView,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Link } from 'expo-router';
+import { Link, useRouter } from 'expo-router';
+import {useGlobalContext} from '../../context/GlobalProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const[loading, setIsLoading] = useState(false);
 
-  const handleSignIn = () => {
-    console.log('Sign In pressed');
-    // Add your sign in logic here
-    console.log({
-      email,
-      password,
-    })
-  };
+  const { setUser, setIsLoggedIn, user } = useGlobalContext();
+    const router = useRouter();
+
+const handleSignIn = async () => {
+  setIsLoading(true);
+  try {
+    const response = await fetch('https://veersa-backend.onrender.com/api/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      // Update context
+      setUser(data);
+      setIsLoggedIn(true);
+
+
+      // Persist token or user if needed
+      await AsyncStorage.setItem('user', JSON.stringify(data));
+
+      // TODO :
+      // Navigate to dashboard/home page
+      // router.replace('/home'); // replace '/home' with your protected screen route
+    } else {
+      alert(data.message || 'Invalid email or password');
+    }
+  } catch (error) {
+    console.error('Login error:', error);
+    alert('Something went wrong. Please try again.');
+  }
+  finally {
+    setIsLoading(false);
+  }
+};
+
 
   return (
     <SafeAreaView className="flex-1 bg-white">
@@ -76,8 +111,9 @@ export default function SignInScreen() {
 
         {/* Sign In Button */}
         <TouchableOpacity
-          className="bg-teal-400 h-12 rounded-lg justify-center items-center mb-8"
+          className={`${loading ? "opacity-40" : "opacity-100"} bg-teal-400 h-12 rounded-lg justify-center items-center mb-8`}
           onPress={handleSignIn}
+          disabled={loading}
         >
           <Text className="text-base font-semibold text-white">Sign In</Text>
         </TouchableOpacity>
