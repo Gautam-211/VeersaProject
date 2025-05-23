@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { addDays, format } from "date-fns";
+import { useRouter } from 'expo-router';
 import Image3 from '../../assets/images/Image1.png';
 
 export default function DoctorAppointmentPage() {
+   const router = useRouter();
   const { id } = useLocalSearchParams();
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -81,7 +83,7 @@ export default function DoctorAppointmentPage() {
 
       {/* Doctor Info */}
       <View className="h-[250px] flex-row items-center mb-6 space-x-4 gap-4">
-        <Image source={Image3} className="w-[80px] h-[170px] rounded-full" />
+        <Image source={{uri:doctor.imageUrl}} className="w-[100px] h-[170px] rounded-xl" />
         <View className="flex-1 gap-2">
           <Text className="text-lg font-bold">{doctor.name}</Text>
           <Text className="text-gray-500">{doctor.specialization}</Text>
@@ -130,7 +132,8 @@ export default function DoctorAppointmentPage() {
 
       {/* Book Button */}
       <TouchableOpacity className="bg-cyan-500 py-4 rounded-xl">
-        <Text className="text-white text-center font-bold">
+        <Text className="text-white text-center font-bold"
+         onPress={() => router.push(`/book-appointment?doctorId=${doctor._id}`)}>
           Book an Appointment
         </Text>
       </TouchableOpacity>
