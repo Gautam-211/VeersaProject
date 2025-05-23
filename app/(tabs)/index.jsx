@@ -4,6 +4,7 @@ import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import bannerImage from '../../assets/images/bannerdoctor.png';
 import { useRouter } from 'expo-router';
 
+
 export default function HomeScreen() {
   const router = useRouter();
 
@@ -15,14 +16,14 @@ export default function HomeScreen() {
   return (
     <ScrollView className="p-4 bg-white">
       {/* Profile Header */}
-      <View className="mt-14 flex-row items-center mb-5">
+      <View className="mt-14 flex-row items-center mb-5 px-4">
         <Image
           source={{ uri: 'https://via.placeholder.com/40' }}
           className="w-[70px] h-[70px] rounded-2xl mr-3"
         />
         <View>
           <Text className="text-xs text-gray-500 font-['Poppins-Regular']">Hi, Welcome Back,</Text>
-          <Text className="w-[150px] text-base text-black font-['Poppins-Bold']">John Doe William</Text>
+          <Text className="w-[150px] text-base text-black font-['Poppins-Bold'] font-bold">John Doe William</Text>
         </View>
         <Ionicons name="notifications-outline" size={24} color="black" className="ml-auto" />
       </View>
@@ -41,7 +42,7 @@ export default function HomeScreen() {
             Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum, ac aliquet odio mattis.
           </Text>
         </View>
-        <Image source={bannerImage} className="w-20 h-20 rounded-lg ml-3" />
+        <Image source={bannerImage} className="w-[80px] h-[150px] rounded-full  ml-3" />
       </View>
 
       {/* Categories */}
@@ -66,22 +67,22 @@ export default function HomeScreen() {
       </View>
 
       {/* Doctor Card */}
-      <View className="h-[180px] flex-row bg-[#D2EBE74D] rounded-xl p-3 mb-5 mx-1 items-center">
-        <Image source={bannerImage} className="w-12 h-10 rounded-full mr-3" />
-        <View className="flex-1">
-          <Text className="text-sm font-['Poppins-Bold']">Dr. Pawan</Text>
-          <Text className="text-xs text-gray-600 font-['Poppins-Regular']">
-            Lorem ipsum dolor, consectetur adipiscing elit.
-          </Text>
-        </View>
-        <TouchableOpacity className="bg-[#2DBFE6] px-3 py-1 rounded-lg ml-2">
-          <Text className="text-white text-xs font-['Poppins-Medium']">Book</Text>
-        </TouchableOpacity>
-        <View className="flex-row items-center ml-2">
-          <FontAwesome name="star" size={16} color="#FFA500" />
-          <Text className="text-xs ml-1 font-['Poppins-Regular']">5.0</Text>
+<View className="flex-row mb-4 p-3 bg-[#E9FAFD] rounded-xl">
+      {/* Use the randomImage property assigned to each item */}
+      <Image source={bannerImage} className="w-[80px] h-[170px] rounded-full" />
+      <View className="flex-1 ml-3 justify-center">
+        <Text className="text-base font-semibold font-[Poppins-SemiBold] font-bold">Kevin Hernandez</Text>
+        <Text className="text-xs mt-1 mb-2 font-light font-[Poppins-Light]">Dermatologist</Text>
+        <Text className="text-base font-semibold font-[Poppins-SemiBold] mb-2">2 years experience</Text>
+        <Text className="text-xs mt-1 mb-2 font-light font-[Poppins-Light]"><FontAwesome name="rupee" size={15} color="black" />832</Text>
+        <View className="flex-row justify-between items-center">
+          <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full mt-4">
+            <Text className="text-white text-xs font-medium font-[Poppins-Medium]">Book</Text>
+          </TouchableOpacity>
+          <Text className="text-[#FF9800] text-sm font-medium font-[Poppins-Medium]">⭐</Text>
         </View>
       </View>
+    </View>
     </ScrollView>
   );
 }

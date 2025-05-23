@@ -36,7 +36,7 @@ const AllDoctors = () => {
   const renderItem = ({ item }) => (
     <View className="flex-row mb-4 p-3 bg-[#E9FAFD] rounded-xl">
       {/* Use the randomImage property assigned to each item */}
-      <Image source={item.randomImage} className="w-[70px] h-[170px] rounded-full" />
+      <Image source={item.randomImage} className="w-[80px] h-[170px] rounded-full" />
       <View className="flex-1 ml-3 justify-center">
         <Text className="text-base font-semibold font-[Poppins-SemiBold]">{item.name}</Text>
         <Text className="text-xs mt-1 mb-2 font-light font-[Poppins-Light]">Specialization:{item.specialization}</Text>
@@ -45,7 +45,7 @@ const AllDoctors = () => {
         <Text className="text-xs mt-1 mb-2 font-light font-[Poppins-Light]">{item.fees}</Text>
         <View className="flex-row justify-between items-center">
           <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full" onPress={() => router.push(`/doctor-profile/${item._id}`)}>
-            <Text className="text-white text-xs font-medium font-[Poppins-Medium]">Book</Text>
+            <Text className="text-white text-xs font-medium font-[Poppins-Medium]">view detail</Text>
           </TouchableOpacity>
           <Text className="text-[#FF9800] text-sm font-medium font-[Poppins-Medium]">⭐ {item.rating}</Text>
         </View>
