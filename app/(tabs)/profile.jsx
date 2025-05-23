@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
+import { View, Text, TouchableOpacity, ScrollView, SafeAreaView, Linking } from 'react-native';
 import { useGlobalContext } from "../../context/GlobalProvider"; // adjust path if needed
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -57,6 +57,10 @@ const ProfileScreen = () => {
 
           <Text className="font-semibold">Address:</Text>
           <Text>{user?.address || 'Not Provided'}</Text>
+          {/* <TouchableOpacity onPress={() => Linking.openURL("https://www.google.com/maps/dir/?api=1&origin=28.6295,77.0946&destination=28.6304,77.2177&travelmode=driving")}>
+            <Text className="text-blue-500 mt-2">click here</Text>
+          </TouchableOpacity> */}
+
         </View>
       </ScrollView>
     </SafeAreaView>
