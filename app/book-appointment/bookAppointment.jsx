@@ -80,29 +80,38 @@ export default function BookAppointment() {
   }
 
   const handleBookAppointment = async () => {
-    if (!selectedDate || !selectedSlot || !reason || !selectedSymptom) {
-      alert("Please fill in all required fields");
-      return;
-    }
-   console.log(user._id);
-    const appointmentData = {
-      doctorId,
-       userId: user?._id, 
-      date: format(selectedDate, 'yyyy-MM-dd'),
-      timeSlot: selectedSlot,
-      reason,
-      symptoms: selectedSymptom,
-      notes,
-    };
+  if (!selectedDate || !selectedSlot || !reason || !selectedSymptom) {
+    alert("Please fill in all required fields");
+    return;
+  }
 
-    try {
-      console.log("Appointment Data:", appointmentData);
-      alert("Appointment booked successfully!");
-    } catch (error) {
-      console.error("Error booking appointment:", error);
-      alert("Failed to book appointment. Please try again.");
-    }
+  if (!user?.latitude || !user?.longitude || !doctor?.latitude || !doctor?.longitude) {
+    alert("Location coordinates missing for user or doctor.");
+    return;
+  }
+
+  const drivingLink = `https://www.google.com/maps/dir/?api=1&origin=${user.latitude},${user.longitude}&destination=${doctor.latitude},${doctor.longitude}&travelmode=driving`;
+
+  const appointmentData = {
+    doctorId,
+    userId: user._id,
+    date: format(selectedDate, 'yyyy-MM-dd'),
+    timeSlot: selectedSlot,
+    reason,
+    symptoms: selectedSymptom,
+    notes,
+    drivingLink, 
   };
+
+  try {
+    console.log("Appointment Data:", appointmentData);
+    alert("Appointment booked successfully!");
+  } catch (error) {
+    console.error("Error booking appointment:", error);
+    alert("Failed to book appointment. Please try again.");
+  }
+};
+
 
   if (loadingDoctor) {
     return (
