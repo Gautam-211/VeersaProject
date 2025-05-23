@@ -1,6 +1,6 @@
 import { View, Text, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { getAllDoctors } from '../../lib/api';
+import { getAllDoctors } from '../../lib/api1';
 import { useNavigation } from 'expo-router'; // Assuming useNavigation is still needed for other purposes, though not directly used in this snippet.
 import Image1 from '../../assets/images/Image1.png';
 import Image2 from '../../assets/images/Image2.png'; 

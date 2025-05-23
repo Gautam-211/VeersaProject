@@ -44,7 +44,7 @@ const handleSignIn = async () => {
 
       // TODO :
       // Navigate to dashboard/home page
-      // router.replace('/home'); // replace '/home' with your protected screen route
+      router.replace('/home'); // replace '/home' with your protected screen route
     } else {
       alert(data.message || 'Invalid email or password');
     }
