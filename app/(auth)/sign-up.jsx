@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
+import { signUpUser } from '../../lib/api2';
 
 export default function SignUpScreen() {
   const [fullName, setFullName] = useState('');
@@ -21,38 +22,22 @@ export default function SignUpScreen() {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSignUp = async () => {
-    setIsLoading(true);
+  setIsLoading(true);
   try {
-    const response = await fetch('https://veersa-backend.onrender.com/api/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        name: fullName,
-        email: email,
-        password: password,
-        phone: mobileNumber,
-        address: address,
-      }),
+    const data = await signUpUser({
+      name: fullName,
+      email,
+      password,
+      phone: mobileNumber,
+      address,
     });
 
-    const data = await response.json();
-
-    if (response.ok) {
-    //   console.log('Signup successful:', data);
-      // You can navigate to another screen or store the token here
-      alert('Signup successful!');
-      router.replace('/sign-in'); // Redirect to sign-in page after successful signup
-    } else {
-      console.error('Signup failed:', data);
-      alert(data.message || 'Signup failed. Please try again.');
-    }
+    alert('Signup successful!');
+    router.replace('/sign-in');
   } catch (error) {
-    console.error('Error during signup:', error);
-    alert('An error occurred. Please try again later.');
-  }
-  finally {
+    console.error('Signup error:', error);
+    alert(error.message || 'Signup failed. Please try again.');
+  } finally {
     setIsLoading(false);
   }
 };

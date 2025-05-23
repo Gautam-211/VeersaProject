@@ -9,7 +9,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
 import {useGlobalContext} from '../../context/GlobalProvider';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { signInUser } from '../../lib/api2'; // Adjust the import path as necessary
 
 export default function SignInScreen() {
   const [email, setEmail] = useState('');
@@ -23,36 +23,18 @@ export default function SignInScreen() {
 const handleSignIn = async () => {
   setIsLoading(true);
   try {
-    const response = await fetch('https://veersa-backend.onrender.com/api/users/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email, password }),
-    });
+    const data = await signInUser(email, password);
 
-    const data = await response.json();
+    // Update context
+    setUser(data);
+    setIsLoggedIn(true);
 
-    if (response.ok) {
-      // Update context
-      setUser(data);
-      setIsLoggedIn(true);
-
-
-      // Persist token or user if needed
-      await AsyncStorage.setItem('user', JSON.stringify(data));
-
-      // TODO :
-      // Navigate to dashboard/home page
-      router.replace('/home'); // replace '/home' with your protected screen route
-    } else {
-      alert(data.message || 'Invalid email or password');
-    }
+    // Navigate to home/dashboard
+    router.replace('/home');
   } catch (error) {
     console.error('Login error:', error);
-    alert('Something went wrong. Please try again.');
-  }
-  finally {
+    alert(error.message || 'Something went wrong. Please try again.');
+  } finally {
     setIsLoading(false);
   }
 };
