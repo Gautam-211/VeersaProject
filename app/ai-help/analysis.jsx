@@ -8,6 +8,48 @@ const CARD_BG = '#F3FBFE';
 const GRAY_TEXT = '#666';
 const DARK_TEXT = '#222';
 
+const urgencyCardStyle = (level) => {
+  switch (level) {
+    case 'Emergency':
+      return {
+        backgroundColor: '#FEE2E2',
+        borderLeftWidth: 5,
+        borderLeftColor: '#EF4444', // red-500
+      };
+    case 'Medium':
+      return {
+        backgroundColor: '#FEF9C3',
+        borderLeftWidth: 5,
+        borderLeftColor: '#FACC15', // yellow-400
+      };
+    case 'Routine':
+      return {
+        backgroundColor: '#DCFCE7',
+        borderLeftWidth: 5,
+        borderLeftColor: '#22C55E', // green-500
+      };
+    default:
+      return {
+        backgroundColor: CARD_BG,
+        borderLeftWidth: 5,
+        borderLeftColor: TEAL,
+      };
+  }
+};
+
+const urgencyTextColor = (level) => {
+  switch (level) {
+    case 'Emergency':
+      return '#B91C1C'; // red-700
+    case 'Medium':
+      return '#CA8A04'; // yellow-700
+    case 'Routine':
+      return '#15803D'; // green-700
+    default:
+      return GRAY_TEXT;
+  }
+};
+
 const Report = () => {
   const { recommendation } = useGlobalContext();
 
@@ -22,10 +64,9 @@ const Report = () => {
     );
   }
 
+  // Render
   return (
     <ScrollView className="flex-1 bg-white px-4 py-6">
-
-      {/* Main Heading */}
       <Text className="text-2xl font-bold text-center mb-6" style={{ color: TEAL }}>
         Health Analysis Report
       </Text>
@@ -48,15 +89,20 @@ const Report = () => {
         </View>
       </View>
 
-      {/* Info Cards */}
-      <View style={{ backgroundColor: CARD_BG, borderRadius: 12, padding: 14, marginBottom: 14, borderLeftWidth: 5, borderLeftColor: TEAL }}>
+      {/* Urgency Level Card (color-coded) */}
+      <View style={{
+        borderRadius: 12, padding: 14, marginBottom: 14,
+        ...urgencyCardStyle(result.urgencyLevel),
+      }}>
         <Text style={{ color: DARK_TEXT, fontWeight: 'bold', marginBottom: 3, fontSize: 15 }}>
-          <Ionicons name="alert" size={16} color={TEAL} />
-          {'  '}Urgency Level
+          <Ionicons name="alert" size={16} color={TEAL} />{'  '}Urgency Level
         </Text>
-        <Text style={{ color: GRAY_TEXT, fontSize: 15 }}>{result.urgencyLevel}</Text>
+        <Text style={{ color: urgencyTextColor(result.urgencyLevel), fontSize: 15 }}>
+          {result.urgencyLevel}
+        </Text>
       </View>
 
+      {/* The rest cards are standard */}
       <View style={{ backgroundColor: CARD_BG, borderRadius: 12, padding: 14, marginBottom: 14, borderLeftWidth: 5, borderLeftColor: TEAL }}>
         <Text style={{ color: DARK_TEXT, fontWeight: 'bold', marginBottom: 3, fontSize: 15 }}>
           <Ionicons name="help-circle" size={16} color={TEAL} />
@@ -64,7 +110,6 @@ const Report = () => {
         </Text>
         <Text style={{ color: GRAY_TEXT, fontSize: 15 }}>{result.reasoning}</Text>
       </View>
-
       <View style={{ backgroundColor: CARD_BG, borderRadius: 12, padding: 14, marginBottom: 14, borderLeftWidth: 5, borderLeftColor: TEAL }}>
         <Text style={{ color: DARK_TEXT, fontWeight: 'bold', marginBottom: 3, fontSize: 15 }}>
           <Ionicons name="checkmark-circle" size={16} color={TEAL} />
@@ -74,7 +119,6 @@ const Report = () => {
           <Text key={index} style={{ color: GRAY_TEXT, fontSize: 14, marginLeft: 8, marginBottom: 2 }}>• {item}</Text>
         ))}
       </View>
-
       <View style={{ backgroundColor: CARD_BG, borderRadius: 12, padding: 14, marginBottom: 14, borderLeftWidth: 5, borderLeftColor: TEAL }}>
         <Text style={{ color: DARK_TEXT, fontWeight: 'bold', marginBottom: 3, fontSize: 15 }}>
           <Ionicons name="document-text" size={16} color={TEAL} />
@@ -82,7 +126,6 @@ const Report = () => {
         </Text>
         <Text style={{ color: GRAY_TEXT, fontSize: 15 }}>{result.additionalNotes}</Text>
       </View>
-
       {/* Disclaimer */}
       <View style={{ borderRadius: 10, padding: 10, backgroundColor: '#F6F6F7', marginBottom: 10, borderLeftWidth: 3, borderLeftColor: '#FFA500' }}>
         <Text style={{ color: '#888', fontSize: 13, fontStyle: 'italic' }}>

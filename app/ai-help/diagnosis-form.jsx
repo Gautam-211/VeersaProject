@@ -5,10 +5,12 @@ import {
 } from 'react-native';
 import { getSymptomsList, analyzeDiagnosis } from '../../lib/api2'; // Implement analyzeDiagnosis API call
 import { router } from 'expo-router';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 export default function DiagnosisFormScreen() {
   const [symptoms, setSymptoms] = useState([]);
   const [selectedSymptoms, setSelectedSymptoms] = useState({});
+  const {setDiagnosis} = useGlobalContext(); 
   // Patient info state
   const [age, setAge] = useState('');
   const [gender, setGender] = useState('');
@@ -93,11 +95,13 @@ export default function DiagnosisFormScreen() {
         lang: 'en',
       };
 
-    //   const result = await analyzeDiagnosis(payload); // Send to backend
+      const result = await analyzeDiagnosis(payload); // Send to backend
+      setDiagnosis(result); // Assuming you have a context to set diagnosis
+
       Alert.alert("Diagnosis Complete", "See your results!", [
         {
           text: "OK",
-          onPress: () => router.push('/ai-help/diagnosis-result'),
+          onPress: () => router.push('/ai-help/diagnosis'),
         },
       ]);
     } catch (error) {
@@ -130,7 +134,7 @@ export default function DiagnosisFormScreen() {
           </Text>
           <ScrollView
             className="flex-1 px-4 py-6 bg-white"
-            contentContainerStyle={{ paddingBottom: 40 }}
+            contentContainerStyle={{ paddingBottom: 40, flexGrow: 1 }}
             keyboardShouldPersistTaps="handled"
           >
 
