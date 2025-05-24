@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Alert, SafeAreaView, StatusBar, KeyboardAvoidingView, Platform } from 'react-native';
-import { getSymptomsList } from '../../lib/api2'; // Adjust path as needed
+import { analyzeSymptoms, getSymptomsList } from '../../lib/api2'; // Adjust path as needed
+import { router } from 'expo-router';
+import { useGlobalContext } from '../../context/GlobalProvider';
 
 export default function SymptomFormScreen() {
   const [symptoms, setSymptoms] = useState([]);
@@ -9,6 +11,7 @@ export default function SymptomFormScreen() {
   const [userGender, setUserGender] = useState('');
   const [medicalHistory, setMedicalHistory] = useState('');
   const [loading, setLoading] = useState(true);
+  const {setRecommendation, recommendation} = useGlobalContext(); // Assuming you have a context to set recommendation
 
   useEffect(() => {
     const fetchSymptoms = async () => {
@@ -45,6 +48,8 @@ export default function SymptomFormScreen() {
   };
 
   const handleSubmit = async () => {
+  try {
+    // Construct the payload from state
     const payload = {
       symptoms: Object.entries(selectedSymptoms).map(([name, severity]) => ({
         name,
@@ -52,12 +57,26 @@ export default function SymptomFormScreen() {
       })),
       userAge: Number(userAge),
       userGender,
-      medicalHistory: medicalHistory.split(',').map((item) => item.trim()),
+      medicalHistory: medicalHistory
+        .split(',')
+        .map((item) => item.trim())
+        .filter((item) => item.length > 0),
     };
 
-    console.log(payload);
-    // Submit logic here
-  };
+    // Call the API
+    const result = await analyzeSymptoms(payload);
+    setRecommendation(result);
+
+    // Handle success
+    Alert.alert('Success', 'Specialization recommendation received!');
+    
+    router.push('/ai-help/analysis')
+
+  } catch (error) {
+    console.error('Error analyzing symptoms:', error.message);
+    Alert.alert('Error', error.message || 'Something went wrong');
+  }
+};
 
   if (loading) {
     return (
