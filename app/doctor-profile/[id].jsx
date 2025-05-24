@@ -3,14 +3,17 @@ import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { Ionicons } from '@expo/vector-icons'; // Add this import for icons
 import { addDays, format } from "date-fns";
 import { useRouter } from 'expo-router';
 import {doctorProfile} from '../../lib/api1';
+
 export default function DoctorAppointmentPage() {
    const router = useRouter();
   const { id } = useLocalSearchParams();
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
+  
   useEffect(() => {
   const fetchDoctor = async () => {
     setLoading(true);
@@ -74,57 +77,118 @@ export default function DoctorAppointmentPage() {
       </Text>
 
       {/* Doctor Info */}
-      <View className="h-[250px] flex-row items-center mb-6 space-x-4 gap-4">
-        <Image source={{uri:doctor.imageUrl}} className="w-[100px] h-[170px] rounded-xl" />
-        <View className="flex-1 gap-2">
-          <Text className="text-lg font-bold">{doctor.name}</Text>
-          <Text className="text-gray-500">{doctor.specialization}</Text>
-          <Text className="text-sm text-gray-500 font-bold">{doctor.experience} years experience</Text>
-          <Text className="text-green-600 font-bold mt-1">
-            <FontAwesome name="rupee" size={17} color="black" />{doctor.fees}
+      <View className="h-[250px] flex-row items-center mb-6 p-4 bg-gray-50 rounded-2xl">
+        <Image source={{uri:doctor.imageUrl}} className="w-[120px] h-[200px] rounded-2xl" />
+        <View className="flex-1 ml-4 gap-2">
+          <View className="flex-row items-center">
+            <Ionicons name="person" size={18} color="#06b6d4" />
+            <Text className="text-lg font-bold ml-2">{doctor.name}</Text>
+          </View>
+          
+          <View className="flex-row items-center">
+            <Ionicons name="medical" size={16} color="#8b5cf6" />
+            <Text className="text-gray-500 ml-2">{doctor.specialization}</Text>
+          </View>
+          
+          <View className="flex-row items-center">
+            <Ionicons name="time" size={16} color="#f59e0b" />
+            <Text className="text-sm text-gray-500 font-bold ml-2">{doctor.experience} years experience</Text>
+          </View>
+          
+          <View className="flex-row items-center mt-1">
+            <FontAwesome name="rupee" size={15} color="#10b981" />
+            <Text className="text-green-600 font-bold ml-1">{doctor.fees}</Text>
+          </View>
+        </View>
+      </View>
+
+      {/* Contact Information */}
+      <View className="mb-6 bg-gray-50 p-4 rounded-2xl">
+        {/* Address */}
+        <View className="flex-row items-center mb-3">
+          <View className="w-8 h-8 bg-red-100 rounded-full items-center justify-center">
+            <Ionicons name="location" size={18} color="#ef4444" />
+          </View>
+          <Text className="text-sm text-gray-600 ml-3 flex-1">
+            {doctor.address || "Address not provided"}
+          </Text>
+        </View>
+
+        {/* Email */}
+        <View className="flex-row items-center mb-3">
+          <View className="w-8 h-8 bg-blue-100 rounded-full items-center justify-center">
+            <Ionicons name="mail" size={18} color="#3b82f6" />
+          </View>
+          <Text className="text-sm text-gray-600 ml-3 flex-1">
+            {doctor.email || "Email not provided"}
+          </Text>
+        </View>
+
+        {/* Phone */}
+        <View className="flex-row items-center">
+          <View className="w-8 h-8 bg-green-100 rounded-full items-center justify-center">
+            <Ionicons name="call" size={18} color="#10b981" />
+          </View>
+          <Text className="text-sm text-gray-600 ml-3 flex-1">
+            {doctor.phone || "Phone not provided"}
           </Text>
         </View>
       </View>
 
-      {/* Description */}
-      <Text className="text-base font-semibold mb-2">Details</Text>
-      <Text className="text-sm text-gray-600 mb-6">
-        {doctor.description || "No description provided"}
-      </Text>
-
       {/* Time Slots */}
-      <View className="h-[80px] flex-row justify-between items-center mb-2">
-        <Text className="font-semibold">Working Hours</Text>
-        <Text className="text-cyan-500">See All</Text>
-      </View>
-
-      <View className="flex-row flex-wrap gap-2 mb-6">
-        {doctor.availableTimeSlots?.map((slot, i) => (
-          <TouchableOpacity key={i} className="px-4 py-2 rounded-full bg-gray-100">
-            <Text className="text-black font-medium">{slot}</Text>
+      <View className="mb-6">
+        <View className="flex-row justify-between items-center mb-4">
+          <View className="flex-row items-center">
+            <Ionicons name="time-outline" size={20} color="#06b6d4" />
+            <Text className="font-semibold ml-2">Working Hours</Text>
+          </View>
+          <TouchableOpacity>
+            <Text className="text-cyan-500 font-medium">See All</Text>
           </TouchableOpacity>
-        ))}
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View className="flex-row gap-3">
+            {doctor.availableTimeSlots?.map((slot, i) => (
+              <TouchableOpacity key={i} className="px-6 py-3 rounded-2xl bg-cyan-50 border border-cyan-200">
+                <Text className="text-cyan-700 font-medium">{slot}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
       </View>
 
       {/* Dates */}
-      <View className="flex-row justify-between items-center mb-2">
-        <Text className="font-semibold">Date</Text>
-        <Text className="text-cyan-500">See All</Text>
-      </View>
-
-      <View className="flex-row space-x-4 mb-10 gap-2">
-        {upcomingDates.map((item, i) => (
-          <TouchableOpacity key={i} className="px-4 py-2 rounded-full bg-cyan-500">
-            <Text className="text-white font-medium">
-              {item.day} {item.dateStr}
-            </Text>
+      <View className="mb-8">
+        <View className="flex-row justify-between items-center mb-4">
+          <View className="flex-row items-center">
+            <Ionicons name="calendar-outline" size={20} color="#06b6d4" />
+            <Text className="font-semibold ml-2">Available Dates</Text>
+          </View>
+          <TouchableOpacity>
+            <Text className="text-cyan-500 font-medium">See All</Text>
           </TouchableOpacity>
-        ))}
+        </View>
+
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View className="flex-row gap-3">
+            {upcomingDates.map((item, i) => (
+              <TouchableOpacity key={i} className="px-6 py-4 rounded-2xl bg-cyan-500 shadow-sm">
+                <Text className="text-white font-semibold text-center">
+                  {item.day}
+                </Text>
+                <Text className="text-white text-sm text-center mt-1">
+                  {item.dateStr}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
       </View>
 
       {/* Book Button */}
-      <TouchableOpacity className="bg-cyan-500 py-4 rounded-xl">
-        <Text className="text-white text-center font-bold"
+      <TouchableOpacity className="bg-cyan-500 py-4 rounded-2xl shadow-lg">
+        <Text className="text-white text-center font-bold text-lg"
          onPress={() => router.push(`/book-appointment/bookAppointment?doctorId=${doctor._id}`)}>
           Book an Appointment
         </Text>

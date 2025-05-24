@@ -8,16 +8,17 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
-import bannerImage from '../../assets/images/bannerdoctor.png';
 import { useRouter } from 'expo-router';
-import { getAllDoctors } from '../../lib/api1';
-import { useGlobalContext } from "../../context/GlobalProvider";
-import {categories} from '../../constants/constant';
-import userImage from '../../assets/images/user.png'
+import { getAllDoctors } from '../../lib/api1'; // Assuming api1 is correct
+import { useGlobalContext } from "../../context/GlobalProvider"; // Assuming GlobalProvider is correct
+import { categories } from '../../constants/constant'; // Assuming categories constant is correct
 
+// Import local image assets
+import userImage from '../../assets/images/user.png';
+import bannerImage from '../../assets/images/bannerdoctor.png'; // Your existing banner image
 
 export default function HomeScreen() {
-   const { user } = useGlobalContext();
+  const { user } = useGlobalContext();
   const [doctors, setDoctors] = useState([]);
   const router = useRouter();
 
@@ -39,19 +40,19 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScrollView className="p-4 bg-white">
+    <ScrollView className="p-4 bg-white mt-5">
       {/* Header */}
       <View className="mt-14 flex-row items-center mb-5 px-2">
         <Image
-          source={userImage}
-          className="w-[50px] h-[50px] rounded-2xl mr-3"
+          source={userImage} 
+          className="w-[70px] h-[70px] rounded-full mr-4" 
         />
         <View>
-          <Text className="text-xs text-gray-500 font-['Poppins-Regular']">
-            Hi, Welcome Back ,{user.email}
+          <Text className="text-sm text-gray-600 font-semibold font-medium">
+            Hi, Welcome Back ,
           </Text>
-          <Text className="w-[150px] text-base text-black font-['Poppins-Bold'] font-bold">
-            {user.name}
+          <Text className="w-[150px] text-lg text-black font-large "> 
+            {user?.name || 'John Doe William'} 
           </Text>
         </View>
         <Ionicons
@@ -69,56 +70,65 @@ export default function HomeScreen() {
           placeholder="Search a Doctor"
           className="ml-2 flex-1 font-['Poppins-Regular']"
         />
+        {/* Microphone icon added */}
+        <Ionicons name="mic-outline" size={20} color="gray" className="ml-2" />
       </View>
 
       {/* Banner */}
-      <View className="h-[180px] flex-row bg-[#0B8FAC] rounded-xl p-4 mb-10 mx-1 items-start">
+     <View className="h-[180px] flex-row bg-[#0B8FAC] rounded-xl p-4 mb-10 mx-1 items-start">
         <View className="flex-1">
-          <Text className="text-white text-base mb-1 font-['Poppins-Bold']">
+          <Text className="text-white text-lg mb-2 font-['Poppins-Bold'] font-bold">
             Medical Center
           </Text>
-          <Text className="text-white text-xs font-['Poppins-Regular']">
-            Yorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc
-            vulputate libero et velit interdum, ac aliquet odio mattis.
+          {/* Quotes added here */}
+          <Text className="text-white text-xs font-medium mb-1">
+            • Healing hands, compassionate hearts.
+          </Text>
+          <Text className="text-white text-xs font-medium mb-1">
+            • In every diagnosis, a promise of hope.
+          </Text>
+          <Text className="text-white text-xs font-medium">
+            • Guardians of well-being, champions of life.
           </Text>
         </View>
         <Image
           source={bannerImage}
-          className="w-[80px] h-[150px] rounded-full ml-3"
+          className="w-[100px] h-[150px] rounded-xl ml-3"
         />
       </View>
 
       {/* Categories */}
       <View className="flex-row justify-between items-center px-4 mb-3">
-        <Text className="text-base font-['Poppins-Bold']">Categories</Text>
+        <Text className="text-cyan-500 font-medium">Categories</Text>
         <TouchableOpacity>
-          <Text className="text-[#2DBFE6] font-['Poppins-Regular']">
+          <Text className="text-cyan-500 font-medium">
             See All
           </Text>
         </TouchableOpacity>
       </View>
       <ScrollView
-  horizontal
-  showsHorizontalScrollIndicator={false}
-  className="h-[80px] px-4 mb-5"
->
-  {categories.map((category, index) => (
-        <TouchableOpacity
-          key={index}
-          className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2"
-          onPress={() => router.push(`/categories/${category}`)}
-        >
-          <Text className="text-center font-['Poppins-Medium']">
-            {category}
-          </Text>
-        </TouchableOpacity>
-      ))}
-</ScrollView>
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        className="h-[60px] px-4 mb-5 mt-8" 
+      >
+        {categories.map((category, index) => (
+          <TouchableOpacity
+            key={index}
+            className="w-[150px] h-[50px] bg-[#7BC1B7] justify-center items-center rounded-lg mr-2" // Wider, centered text
+            onPress={() => router.push(`/categories/${category}`)}
+          >
+            <Text className="text-center font-['Poppins-Medium'] font-semibold">
+              {category}
+            </Text>
+          </TouchableOpacity>
+        ))}
+      </ScrollView>
+
       {/* All Doctors */}
       <View className="flex-row justify-between items-center px-4 mb-2">
-        <Text className="text-base font-['Poppins-Bold']">All Doctors</Text>
+        <Text className="text-cyan-500 font-medium">All Doctors</Text>
         <TouchableOpacity onPress={handleSeeAllDoctors}>
-          <Text className="text-[#2DBFE6] font-['Poppins-Regular']">
+          <Text className="text-cyan-500 font-medium">
             See All
           </Text>
         </TouchableOpacity>
@@ -128,43 +138,59 @@ export default function HomeScreen() {
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
-        className="pl-4 pr-2 mb-10"
+        className="pl-4 pr-2 mb-10 mt-8"
       >
         {doctors.slice(0, 5).map((doctor, index) => (
           <View
             key={index}
-            className=" flex-row mr-3 w-[250px] p-3 bg-[#E9FAFD] rounded-xl"
+            className="w-[375px] h-[180px] flex-row mr-3 w-[280px] p-3 bg-[#E9FAFD] rounded-xl" // Adjusted width for design fit
           >
             <Image
-              source={{uri:doctor.imageUrl}}
-              className="w-[80px] h-[170px] rounded-full"
+              source={{uri:doctor.imageUrl}} 
+              className="w-[80px] h-[80px] rounded-full mt-8" // Adjusted size and rounding for design
             />
-            <View className="ml-3 justify-center">
-              <Text className="text-base font-semibold font-[Poppins-SemiBold]">
-                {doctor.name || 'Dr. Kevin'}
-              </Text>
-              <Text className="text-xs mt-1 mb-2 font-light font-[Poppins-Light]">
-                {doctor.specialization || 'Dermatologist'}
-              </Text>
-              <Text className="text-base font-semibold font-[Poppins-SemiBold] mb-2">
-                {doctor.experience || '2'} years experience
-              </Text>
-              <Text className="text-xs mt-1 mb-2 font-light font-[Poppins-Light]">
-                <FontAwesome name="rupee" size={15} color="black" />{' '}
-                {doctor.fees || 832}
-              </Text>
-              <View className="flex-row justify-between items-center">
-                <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full mt-4"
-                 onPress={() => router.push(`/doctor-profile/${doctor._id}`)}>
-                  <Text className="text-white text-xs font-medium font-[Poppins-Medium]">
-                    View Detail
-                  </Text>
-                </TouchableOpacity>
-                <Text className="text-[#FF9800] text-sm font-medium font-[Poppins-Medium]">
-                  ⭐
-                </Text>
-              </View>
-            </View>
+            <View className="flex-1 ml-3 justify-center">
+                    <View className="flex-row items-center mb-1">
+                      <Ionicons name="person" size={16} color="#00BCD4" />
+                      <Text className="text-base font-semibold ml-1">{doctor.name}</Text>
+                    </View>
+                    
+                    <View className="flex-row items-center mb-1">
+                      <Ionicons name="medical" size={16} color="orange" />
+                      <Text className="text-sm text-gray-500 ml-1 font-bold">Specialization: {doctor.specialization}</Text>
+                    </View>
+                    
+                    <View className="flex-row items-center mb-1">
+                      <Ionicons name="time" size={16} color="#666" />
+                      <Text className="text-sm text-gray-600 ml-1">Experience: {doctor.experience} years</Text>
+                    </View>
+                    
+                    <View className="flex-row items-center mb-1">
+                      <Ionicons name="calendar" size={16} color="#666" />
+                      <Text className="text-sm text-gray-600 ml-1">
+                        Time-slots: {Array.isArray(doctor.availableTimeSlots) ? doctor.availableTimeSlots.join(', ') : doctor.availableTimeSlots}
+                      </Text>
+                    </View>
+                    
+                    <View className="flex-row items-center mb-2">
+                      <Ionicons name="cash" size={16} color="#666" />
+                      <Text className="text-sm text-gray-600 ml-1 font-bold">&#x20B9; {doctor.fees}</Text>
+                    </View>
+                    
+                    <View className="flex-row justify-between mt-2">
+                      <TouchableOpacity
+                        onPress={() => router.push(`/doctor-profile/${doctor._id}`)}
+                        className="bg-[#00BCD4] px-4 py-1.5 rounded-full flex-row items-center"
+                      >
+                        <Ionicons name="eye" size={14} color="white" />
+                        <Text className="text-white text-xs font-medium ml-1">View Detail</Text>
+                      </TouchableOpacity>
+                      <View className="flex-row items-center mb-2">
+                        <Ionicons name="star" size={16} color="#FF9800" />
+                        <Text className="text-[#FF9800] text-sm font-medium ml-1 mr-2 ">{doctor.rating}</Text>
+                      </View>
+                    </View>
+                  </View>
           </View>
         ))}
       </ScrollView>
