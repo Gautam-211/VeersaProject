@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   ScrollView,
+  StatusBar,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
@@ -45,6 +46,8 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
+        <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+        
         <ScrollView>
       <View className="flex-1 px-6 pt-16">
         {/* Header */}

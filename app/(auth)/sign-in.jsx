@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   SafeAreaView,
+  StatusBar,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
@@ -42,6 +43,8 @@ const handleSignIn = async () => {
 
   return (
     <SafeAreaView className="flex-1 bg-white">
+      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      
       <View className="flex-1 px-6 pt-32">
         {/* Header */}
         <View className="items-center mb-10">
