@@ -11,7 +11,7 @@ export default function SymptomFormScreen() {
   const [userGender, setUserGender] = useState('');
   const [medicalHistory, setMedicalHistory] = useState('');
   const [loading, setLoading] = useState(true);
-  const {setRecommendation, recommendation} = useGlobalContext(); // Assuming you have a context to set recommendation
+  const {setRecommendation} = useGlobalContext(); // Assuming you have a context to set recommendation
 
   useEffect(() => {
     const fetchSymptoms = async () => {
