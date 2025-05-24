@@ -173,9 +173,10 @@ export default function HomeScreen() {
                 {doctor.fees || 832}
               </Text>
               <View className="flex-row justify-between items-center">
-                <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full mt-4">
+                <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full mt-4"
+                 onPress={() => router.push(`/doctor-profile/${doctor._id}`)}>
                   <Text className="text-white text-xs font-medium font-[Poppins-Medium]">
-                    Book
+                    View Detail
                   </Text>
                 </TouchableOpacity>
                 <Text className="text-[#FF9800] text-sm font-medium font-[Poppins-Medium]">

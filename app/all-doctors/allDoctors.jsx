@@ -60,7 +60,7 @@ const AllDoctors = () => {
 
   return (
     <View className="flex-1 p-4 bg-white">
-      <Text className="text-xl font-bold mb-4 text-center">All Doctors</Text>
+      <Text className="text-xl font-bold mb-4 text-center mt-10">All Doctors</Text>
       <FlatList
         data={doctors}
         keyExtractor={(item) => item._id.toString()}
