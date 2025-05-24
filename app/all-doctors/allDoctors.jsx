@@ -92,9 +92,8 @@ const AllDoctors = () => {
 
   useEffect(() => {
     fetchDoctors(page);
-  }, [page, user?.latitude, user?.longitude]); // Re-fetch/sort if user location changes
+  }, [page, user?.latitude, user?.longitude]); 
 
-  // Add search functionality
   const handleSearch = (text) => {
     setSearchTerm(text);
     if (text === '') {
