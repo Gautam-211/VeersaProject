@@ -32,12 +32,15 @@ export default function RootLayout() {
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen name='(auth)' options={{headerShown:false}}/>
           <Stack.Screen name='my-appointments/[appointmentId]' options={{headerShown:false}}/>
-          <Stack.Screen name='all-doctors/allDoctors' options={{headerShown:false}}/>
-          <Stack.Screen name='book-appointment/bookAppointment' options={{headerShown:false}}/>
-          <Stack.Screen name='doctor-profile/[id]' options={{headerShown:false}}/>
-          <Stack.Screen name='categories/[specialization]' options={{headerShown:false}}/>
+            <Stack.Screen name='all-doctors/allDoctors' options={{headerShown:false}}/>
+            <Stack.Screen name='book-appointment/bookAppointment' options={{headerShown:false}}/>
+             <Stack.Screen name='doctor-profile/[id]' options={{headerShown:false}}/>
+              <Stack.Screen name='categories/[specialization]' options={{headerShown:false}}/>
+               <Stack.Screen name='payment-screen/payment' options={{headerShown:false}}/>
+                <Stack.Screen name='payment-success/successpage' options={{headerShown:false}}/>
           <Stack.Screen name='ai-help/recommendation-form' options={{headerShown:false}}/>
           <Stack.Screen name='ai-help/analysis' options={{headerShown:false}}/>
+
         </Stack>
         <StatusBar style="auto" />
     </GlobalProvider>
