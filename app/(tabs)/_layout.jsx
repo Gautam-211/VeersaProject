@@ -22,6 +22,14 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="ai-help"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color }) => <Ionicons size={28} name="aperture" color={color} />,
+          tabBarLabel: 'AI Help',
+        }}
+      />
+      <Tabs.Screen
         name="profile"
         options={{
           headerShown: false,
