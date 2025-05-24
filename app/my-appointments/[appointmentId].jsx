@@ -124,7 +124,7 @@ const AppointmentDetails = () => {
               onPress={() => Linking.openURL(drivingLink)}
               activeOpacity={0.8}
             >
-              <View className="flex-row items-center px-4 py-2 rounded-lg bg-blue-600 justify-center">
+              <View className="flex-row items-center px-4 py-2 rounded-lg bg-teal-400 justify-center">
                 <Text className="text-white text-base font-semibold mr-1">📍 Get Directions</Text>
               </View>
             </TouchableOpacity>

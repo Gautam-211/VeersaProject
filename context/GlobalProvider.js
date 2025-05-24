@@ -12,6 +12,7 @@ const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [appointments, setAppointments] = useState([]);
+  const [recommendation, setRecommendation] = useState(null);
 
   useEffect(() => {
   const loadUser = async () => {
@@ -39,7 +40,9 @@ const GlobalProvider = ({ children }) => {
         setUser,
         isLoading,
         appointments,
-        setAppointments
+        setAppointments,
+        recommendation,
+        setRecommendation
      }}>
       {children}
     </GlobalContext.Provider>
