@@ -107,7 +107,7 @@ export default function BookAppointment() {
 
   try {
     console.log("Appointment Data:", appointmentData);
-    await axios.post('https://veersa-backend.onrender.com/api/appointments',{appointmentData});
+    await axios.post('https://veersa-backend.onrender.com/api/appointments',appointmentData);
     alert("Appointment booked successfully!");
   } catch (error) {
     console.error("Error booking appointment:", error);
@@ -127,7 +127,7 @@ export default function BookAppointment() {
 
   return (
     <ScrollView className="flex-1 bg-white p-4">
-      <Text className="text-xl font-bold mb-3 mt-10">Fill all Inputs</Text>
+      <Text className="text-xl font-bold mb-3 mt-10 text-center text-cyan-600">Fill all Inputs</Text>
       <View className="mb-4">
         <Text className="text-base font-semibold mb-2">Reason for Visit</Text>
         <TextInput
