@@ -2,6 +2,7 @@ import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TextInput 
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { doctorProfile } from "../../lib/api1";
+import { useRouter } from 'expo-router';
 import axios from "axios";
 import {
   startOfMonth,
@@ -17,6 +18,7 @@ import {
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 export default function BookAppointment() {
+   const router = useRouter();
   const { doctorId } = useLocalSearchParams();
   const [doctor, setDoctor] = useState(null);
   const { user } = useGlobalContext();
@@ -108,7 +110,8 @@ export default function BookAppointment() {
   try {
     console.log("Appointment Data:", appointmentData);
     await axios.post('https://veersa-backend.onrender.com/api/appointments',appointmentData);
-    alert("Appointment booked successfully!");
+    router.push('/payment-screen/payment');
+    // alert("Appointment booked successfully!");
   } catch (error) {
     console.error("Error booking appointment:", error);
     alert("Failed to book appointment. Please try again.");

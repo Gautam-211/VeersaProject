@@ -36,6 +36,8 @@ export default function RootLayout() {
             <Stack.Screen name='book-appointment/bookAppointment' options={{headerShown:false}}/>
              <Stack.Screen name='doctor-profile/[id]' options={{headerShown:false}}/>
               <Stack.Screen name='categories/[specialization]' options={{headerShown:false}}/>
+               <Stack.Screen name='payment-screen/payment' options={{headerShown:false}}/>
+                <Stack.Screen name='payment-success/successpage' options={{headerShown:false}}/>
         </Stack>
         <StatusBar style="auto" />
     </GlobalProvider>

@@ -170,7 +170,7 @@ const Appointments = () => {
       <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
       {/* Header */}
       <View className="bg-white px-4 py-4 shadow mb-0 z-10">
-          <Text className="text-3xl font-semibold text-center mt-8 mb-6">My Appointments</Text>
+          <Text className="text-3xl font-semibold text-center mt-8 mb-6 text-cyan-600d ">My Appointments</Text>
         {/* Search Bar */}
         <View className="flex-row items-center bg-gray-100 rounded-xl px-3 h-12">
             <Ionicons name="search" size={20} color="gray" />
