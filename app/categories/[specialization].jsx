@@ -1,39 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
-import { useRouter } from 'expo-router';
-import { getAllDoctors } from '../../lib/api1';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import { getAllDoctorsBySpecialization } from '../../lib/api1';
 
-const AllDoctors = () => {
+const DoctorsBySpecialization = () => {
+  const { specialization } = useLocalSearchParams();
   const [doctors, setDoctors] = useState([]);
-  const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(true);
-  const [loadingMore, setLoadingMore] = useState(false);
-  const [hasMore, setHasMore] = useState(true);
   const router = useRouter();
 
-  const fetchDoctors = async (currentPage) => {
-    try {
-      const data = await getAllDoctors(currentPage, 20);
-      if (data.length < 20) setHasMore(false);
-      setDoctors(prev => [...prev, ...data]);
-    } catch (error) {
-      console.error('Error fetching doctors:', error);
-    } finally {
-      setLoading(false);
-      setLoadingMore(false);
-    }
-  };
-
   useEffect(() => {
-    fetchDoctors(page);
-  }, [page]);
+    const fetchDoctors = async () => {
+      try {
+        const data = await getAllDoctorsBySpecialization(specialization,50);
+        setDoctors(data);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-  const loadMoreDoctors = () => {
-    if (hasMore && !loadingMore) {
-      setLoadingMore(true);
-      setPage(prev => prev + 1);
-    }
-  };
+    fetchDoctors();
+  }, [specialization]);
 
   const renderItem = ({ item }) => (
     <View className="flex-row mb-4 p-3 bg-[#E9FAFD] rounded-xl">
@@ -45,10 +34,10 @@ const AllDoctors = () => {
         <Text className="text-base font-semibold">{item.name}</Text>
         <Text className="text-sm text-gray-600">Specialization: {item.specialization}</Text>
         <Text className="text-sm text-gray-600">Experience: {item.experience} years</Text>
+        <Text className="text-sm text-gray-600">Fees: {item.fees}</Text>
         <Text className="text-sm text-gray-600">
           Time-slots: {Array.isArray(item.availableTimeSlots) ? item.availableTimeSlots.join(', ') : item.availableTimeSlots}
         </Text>
-        <Text className="text-sm text-gray-600">Fees: {item.fees}</Text>
         <View className="flex-row justify-between mt-2">
           <TouchableOpacity
             onPress={() => router.push(`/doctor-profile/${item._id}`)}
@@ -62,24 +51,7 @@ const AllDoctors = () => {
     </View>
   );
 
-  const renderFooter = () => {
-    if (!hasMore) return null;
-    return (
-      <TouchableOpacity
-        onPress={loadMoreDoctors}
-        className="my-4 py-2 bg-[#00BCD4] rounded-full items-center"
-        disabled={loadingMore}
-      >
-        {loadingMore ? (
-          <ActivityIndicator color="white" />
-        ) : (
-          <Text className="text-white font-medium ">Load More</Text>
-        )}
-      </TouchableOpacity>
-    );
-  };
-
-  if (loading && doctors.length === 0) {
+  if (loading) {
     return (
       <View className="flex-1 justify-center items-center">
         <ActivityIndicator size="large" color="#00BCD4" />
@@ -89,15 +61,14 @@ const AllDoctors = () => {
 
   return (
     <View className="flex-1 p-4 bg-white">
-      <Text className="text-xl font-bold mb-4 text-center mt-10">All Doctors</Text>
+      <Text className="text-xl font-bold mb-4 text-center mt-10">{specialization} Doctors</Text>
       <FlatList
         data={doctors}
         keyExtractor={(item) => item._id.toString()}
         renderItem={renderItem}
-        ListFooterComponent={renderFooter}
       />
     </View>
   );
 };
 
-export default AllDoctors;
+export default DoctorsBySpecialization;
