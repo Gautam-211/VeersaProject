@@ -107,6 +107,7 @@ export default function BookAppointment() {
 
   try {
     console.log("Appointment Data:", appointmentData);
+    await axios.post('https://veersa-backend.onrender.com/api/appointments',{appointmentData});
     alert("Appointment booked successfully!");
   } catch (error) {
     console.error("Error booking appointment:", error);
@@ -247,8 +248,6 @@ export default function BookAppointment() {
           onChangeText={setNotes}
         />
       </View>
-
-      {/* Book Appointment Button */}
       <TouchableOpacity
         onPress={handleBookAppointment}
         className={`py-4 rounded-xl mb-6 ${
