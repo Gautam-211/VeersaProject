@@ -1,6 +1,7 @@
 import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TextInput } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
+import { doctorProfile } from "../../lib/api1";
 import axios from "axios";
 import {
   startOfMonth,
@@ -36,8 +37,9 @@ export default function BookAppointment() {
 
   const fetchDoctor = async () => {
     try {
-      const res = await axios.get(`https://veersa-backend.onrender.com/api/doctors/${doctorId}`);
-      setDoctor(res.data);
+     setLoadingDoctor(true);
+    const data = await doctorProfile(doctorId);
+    setDoctor(data);
     } catch (err) {
       console.error("API error fetching doctor data:", err.message);
     } finally {
@@ -105,6 +107,7 @@ export default function BookAppointment() {
 
   try {
     console.log("Appointment Data:", appointmentData);
+    await axios.post('https://veersa-backend.onrender.com/api/appointments',{appointmentData});
     alert("Appointment booked successfully!");
   } catch (error) {
     console.error("Error booking appointment:", error);
@@ -124,7 +127,7 @@ export default function BookAppointment() {
 
   return (
     <ScrollView className="flex-1 bg-white p-4">
-      <Text className="text-xl font-bold mb-4">Fill all Inputs</Text>
+      <Text className="text-xl font-bold mb-3 mt-10">Fill all Inputs</Text>
       <View className="mb-4">
         <Text className="text-base font-semibold mb-2">Reason for Visit</Text>
         <TextInput
@@ -215,8 +218,6 @@ export default function BookAppointment() {
           </View>
         </>
       )}
-
-      {/* Symptoms Selection */}
       <View className="mb-4">
         <Text className="text-lg font-semibold mb-2">Select Symptom</Text>
         <View className="flex-row flex-wrap gap-2">
@@ -247,8 +248,6 @@ export default function BookAppointment() {
           onChangeText={setNotes}
         />
       </View>
-
-      {/* Book Appointment Button */}
       <TouchableOpacity
         onPress={handleBookAppointment}
         className={`py-4 rounded-xl mb-6 ${

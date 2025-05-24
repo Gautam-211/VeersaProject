@@ -12,6 +12,8 @@ import bannerImage from '../../assets/images/bannerdoctor.png';
 import { useRouter } from 'expo-router';
 import { getAllDoctors } from '../../lib/api1';
 import { useGlobalContext } from "../../context/GlobalProvider";
+import {categories} from '../../constants/constant';
+import userImage from '../../assets/images/user.png'
 
 
 export default function HomeScreen() {
@@ -39,10 +41,10 @@ export default function HomeScreen() {
   return (
     <ScrollView className="p-4 bg-white">
       {/* Header */}
-      <View className="mt-14 flex-row items-center mb-5 px-4">
+      <View className="mt-14 flex-row items-center mb-5 px-2">
         <Image
-          source={{ uri: 'https://via.placeholder.com/70' }}
-          className="w-[70px] h-[70px] rounded-2xl mr-3"
+          source={userImage}
+          className="w-[50px] h-[50px] rounded-2xl mr-3"
         />
         <View>
           <Text className="text-xs text-gray-500 font-['Poppins-Regular']">
@@ -100,39 +102,18 @@ export default function HomeScreen() {
   showsHorizontalScrollIndicator={false}
   className="h-[80px] px-4 mb-5"
 >
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Cardiology</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Dermatology</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Ent</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Gynecology</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Neurology</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px]  h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Ophthalmology</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Orthopedics</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Pediatrics</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2">
-    <Text className="text-center font-['Poppins-Medium']">Psychiatry</Text>
-  </TouchableOpacity>
-  <TouchableOpacity className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg">
-    <Text className="text-center font-['Poppins-Medium']">Urology</Text>
-  </TouchableOpacity>
+  {categories.map((category, index) => (
+        <TouchableOpacity
+          key={index}
+          className="w-[120px] h-[50px] bg-[#7BC1B7] text-center pt-3 rounded-lg mr-2"
+          onPress={() => router.push(`/categories/${category}`)}
+        >
+          <Text className="text-center font-['Poppins-Medium']">
+            {category}
+          </Text>
+        </TouchableOpacity>
+      ))}
 </ScrollView>
-
-
       {/* All Doctors */}
       <View className="flex-row justify-between items-center px-4 mb-2">
         <Text className="text-base font-['Poppins-Bold']">All Doctors</Text>
@@ -173,9 +154,10 @@ export default function HomeScreen() {
                 {doctor.fees || 832}
               </Text>
               <View className="flex-row justify-between items-center">
-                <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full mt-4">
+                <TouchableOpacity className="bg-[#00BCD4] px-4 py-1.5 rounded-full mt-4"
+                 onPress={() => router.push(`/doctor-profile/${doctor._id}`)}>
                   <Text className="text-white text-xs font-medium font-[Poppins-Medium]">
-                    Book
+                    View Detail
                   </Text>
                 </TouchableOpacity>
                 <Text className="text-[#FF9800] text-sm font-medium font-[Poppins-Medium]">

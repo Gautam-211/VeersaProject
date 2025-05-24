@@ -17,9 +17,9 @@ const ProfileScreen = () => {
   ];
 
   return (
-    <SafeAreaView className="flex-1 bg-white pt-32">
+    <SafeAreaView className="flex-1 bg-white">
       <ScrollView contentContainerStyle={{ padding: 20 }}>
-        <Text className="text-3xl font-semibold text-center mt-4 mb-6">Profile</Text>
+        <Text className="text-3xl font-semibold text-center mt-8 mb-6">Profile</Text>
 
         <Text className="text-center font-bold text-xl mb-6">
           {user?.name || 'No Name'}
@@ -57,10 +57,6 @@ const ProfileScreen = () => {
 
           <Text className="font-semibold">Address:</Text>
           <Text>{user?.address || 'Not Provided'}</Text>
-          {/* <TouchableOpacity onPress={() => Linking.openURL("https://www.google.com/maps/dir/?api=1&origin=28.6295,77.0946&destination=28.6304,77.2177&travelmode=driving")}>
-            <Text className="text-blue-500 mt-2">click here</Text>
-          </TouchableOpacity> */}
-
         </View>
       </ScrollView>
     </SafeAreaView>

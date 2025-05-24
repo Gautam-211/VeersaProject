@@ -5,29 +5,21 @@ import axios from "axios";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { addDays, format } from "date-fns";
 import { useRouter } from 'expo-router';
-import Image3 from '../../assets/images/Image1.png';
-
+import {doctorProfile} from '../../lib/api1';
 export default function DoctorAppointmentPage() {
    const router = useRouter();
   const { id } = useLocalSearchParams();
   const [doctor, setDoctor] = useState(null);
   const [loading, setLoading] = useState(true);
-
-  const API_URL = `https://veersa-backend.onrender.com/api/doctors/${id}`;
-
   useEffect(() => {
-    const fetchDoctor = async () => {
-      try {
-        const response = await axios.get(API_URL);
-        setDoctor(response.data);
-      } catch (error) {
-        console.error("Error fetching doctor data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  const fetchDoctor = async () => {
+    setLoading(true);
+    const data = await doctorProfile(id);
+    setDoctor(data);
+    setLoading(false);
+  };
 
-    fetchDoctor();
+  fetchDoctor();
   }, [id]);
 
   const getUpcomingDates = (availableDays) => {
@@ -76,7 +68,7 @@ export default function DoctorAppointmentPage() {
   const upcomingDates = getUpcomingDates(doctor.availableDays || []);
 
   return (
-    <ScrollView className="flex-1 bg-white px-8 py-6">
+    <ScrollView className="flex-1 bg-white px-8 py-6 mt-10">
       <Text className="text-xl font-bold text-center text-cyan-600 mb-4">
         Appointment
       </Text>
