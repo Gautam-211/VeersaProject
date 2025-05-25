@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TextInput, Alert } from "react-native"; // Added Alert
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TextInput, Alert, SafeAreaView } from "react-native"; // Added Alert
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { doctorProfile } from "../../lib/api1";
@@ -26,9 +26,9 @@ export default function BookAppointment() {
   const [calendarDays, setCalendarDays] = useState([]);
   const [loadingDoctor, setLoadingDoctor] = useState(true);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [reason, setReason] = useState("");
+  const [reason, setReason] = useState("normal");
   const [selectedSymptom, setSelectedSymptom] = useState(null);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState("add something");
   const symptoms = [
     "Fever",
     "Headache",
@@ -113,7 +113,7 @@ export default function BookAppointment() {
 
     try {
       // console.log("Appointment Data:", appointmentData);
-      const response = await axios.post('https://veersa-backend.onrender.com/api/appointments', appointmentData);
+      const response = await axios.post('https://veersa-backend-production.up.railway.app/api/appointments', appointmentData);
       const bookedAppointmentId = response.data._id;
       router.push({
         pathname: '/payment-screen/payment',
@@ -122,10 +122,9 @@ export default function BookAppointment() {
           appointmentId: bookedAppointmentId, // Pass the ID from the backend
         },
       });
-      // Alert.alert("Success", "Appointment booked successfully! Proceeding to payment.");
     } catch (error) {
       console.error("Error booking appointment:", error);
-      Alert.alert("Booking Failed", "Failed to book appointment. Please try again.");
+      Alert.alert("This time slot is already booked ,please try another");
     }
   };
 
@@ -140,8 +139,9 @@ export default function BookAppointment() {
   }
 
   return (
+    <SafeAreaView className="flex-1 bg-white">
     <ScrollView className="flex-1 bg-white p-4">
-      <Text className="text-xl font-bold mb-3 mt-10 text-center text-cyan-600">Fill all Inputs</Text>
+      <Text className="text-xl font-bold mb-3  text-center text-cyan-600">Fill all Inputs</Text>
       <View className="mb-4">
         <Text className="text-base font-semibold mb-2">Reason for Visit</Text>
         <TextInput
@@ -276,5 +276,6 @@ export default function BookAppointment() {
         </Text>
       </TouchableOpacity>
     </ScrollView>
+    </SafeAreaView>
   );
 }

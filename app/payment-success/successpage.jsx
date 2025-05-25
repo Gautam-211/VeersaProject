@@ -31,12 +31,11 @@ export default function PaymentSuccessScreen() {
     }
 
     const timer = setTimeout(() => {
-      console.log("debug it is trying to redirect /my-appointment");
-      router.push('/my-appointments'); 
+      router.replace('/my-appointments')
     }, 2000); 
 
     return () => clearTimeout(timer);
-  }, [params]); 
+  }, [params.appointmentId]); 
 
   return (
     <View className="flex-1 bg-white justify-center items-center p-4">
@@ -53,7 +52,7 @@ export default function PaymentSuccessScreen() {
         Your Payment Is Successfully
       </Text>
       <TouchableOpacity onPress={()=>router.push('/my-appointments')}>
-        <Text className="text-xl font-bold mb-4 text-center mt-10 text-cyan-600">
+        <Text className="text-xl font-bold mb-4 text-center mt-10 text-cyan-600 mt-10">
           Back to my appointments
         </Text>
       </TouchableOpacity>

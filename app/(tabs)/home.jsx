@@ -6,6 +6,7 @@ import {
   ScrollView,
   Image,
   TouchableOpacity,
+  SafeAreaView,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -39,9 +40,9 @@ export default function HomeScreen() {
   };
 
   return (
-    <ScrollView className="p-4 bg-white mt-5">
-      {/* Header */}
-      <View className="mt-14 flex-row items-center mb-5 px-2">
+    <SafeAreaView className="flex-1 bg-white">
+    <ScrollView className="p-4 bg-white">
+      <View className="mt-10 flex-row items-center mb-5 px-2">
         <Image
           source={userImage} 
           className="w-[70px] h-[70px] rounded-full mr-4" 
@@ -194,5 +195,6 @@ export default function HomeScreen() {
         ))}
       </ScrollView>
     </ScrollView>
+    </SafeAreaView>
   );
 }

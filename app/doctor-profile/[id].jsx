@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator } from "react-native";
+import { View, Text, Image, TouchableOpacity, ScrollView, ActivityIndicator, SafeAreaView } from "react-native";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -87,7 +87,8 @@ export default function DoctorAppointmentPage() {
   const upcomingDates = getUpcomingDates(doctor.availableDays || []);
 
   return (
-    <ScrollView className="flex-1 bg-white px-8 py-6 mt-10">
+    <SafeAreaView className="flex-1 bg-white">
+    <ScrollView className="flex-1 bg-white px-8 py-6 ">
       <Text className="text-xl font-bold text-center text-cyan-600 mb-4">
         Appointment
       </Text>
@@ -210,5 +211,6 @@ export default function DoctorAppointmentPage() {
         </Text>
       </TouchableOpacity>
     </ScrollView>
+    </SafeAreaView>
   );
 }
