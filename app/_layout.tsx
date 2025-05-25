@@ -4,6 +4,7 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-reanimated';
 import GlobalProvider from '../context/GlobalProvider';
 import { useEffect } from 'react';
+import Notification from './notificationScheduler.jsx';
 
 
 SplashScreen.preventAutoHideAsync();
@@ -27,6 +28,7 @@ export default function RootLayout() {
 
   return (
     <GlobalProvider>
+      <Notification/>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />

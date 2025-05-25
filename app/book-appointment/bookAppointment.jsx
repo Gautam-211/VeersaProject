@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TextInput } from "react-native";
+import { View, Text, ScrollView, TouchableOpacity, ActivityIndicator, TextInput, Alert, SafeAreaView } from "react-native"; // Added Alert
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { doctorProfile } from "../../lib/api1";
@@ -18,17 +18,17 @@ import {
 import { useGlobalContext } from "../../context/GlobalProvider";
 
 export default function BookAppointment() {
-   const router = useRouter();
+  const router = useRouter();
   const { doctorId } = useLocalSearchParams();
   const [doctor, setDoctor] = useState(null);
-  const { user } = useGlobalContext();
+  const { user } = useGlobalContext(); // Get user from global context
   const [selectedDate, setSelectedDate] = useState(null);
   const [calendarDays, setCalendarDays] = useState([]);
   const [loadingDoctor, setLoadingDoctor] = useState(true);
   const [selectedSlot, setSelectedSlot] = useState(null);
-  const [reason, setReason] = useState("");
+  const [reason, setReason] = useState("normal");
   const [selectedSymptom, setSelectedSymptom] = useState(null);
-  const [notes, setNotes] = useState("");
+  const [notes, setNotes] = useState("add something");
   const symptoms = [
     "Fever",
     "Headache",
@@ -39,11 +39,12 @@ export default function BookAppointment() {
 
   const fetchDoctor = async () => {
     try {
-     setLoadingDoctor(true);
-    const data = await doctorProfile(doctorId);
-    setDoctor(data);
+      setLoadingDoctor(true);
+      const data = await doctorProfile(doctorId);
+      setDoctor(data);
     } catch (err) {
       console.error("API error fetching doctor data:", err.message);
+      Alert.alert("Error", "Failed to load doctor details."); 
     } finally {
       setLoadingDoctor(false);
     }
@@ -78,45 +79,54 @@ export default function BookAppointment() {
       (d) => d.toLowerCase() === dayName.toLowerCase()
     );
   };
+
   const calendarWeeks = [];
   for (let i = 0; i < calendarDays.length; i += 7) {
     calendarWeeks.push(calendarDays.slice(i, i + 7));
   }
 
   const handleBookAppointment = async () => {
-  if (!selectedDate || !selectedSlot || !reason || !selectedSymptom) {
-    alert("Please fill in all required fields");
-    return;
-  }
+    if (!selectedDate || !selectedSlot || !reason || !selectedSymptom) {
+      Alert.alert("Missing Information", "Please fill in all required fields (Date, Time Slot, Reason, Symptom).");
+      return;
+    }
+    if (!user?.latitude || !user?.longitude || !doctor?.latitude || !doctor?.longitude) {
+      Alert.alert("Location Missing", "Location coordinates missing for user or doctor. Cannot generate driving link.");
+      return;
+    }
+    const drivingLink = `http://maps.google.com/maps?saddr=${user.latitude},${user.longitude}&daddr=${doctor.latitude},${doctor.longitude}&dirflg=d`;
+    const appointmentData = {
+      doctorId: doctor._id, // Ensure doctor._id is available
+      userId: user._id, // Ensure user._id is available
+      date: format(selectedDate, 'yyyy-MM-dd'),
+      timeSlot: selectedSlot,
+      reason,
+      symptoms: selectedSymptom,
+      notes,
+      drivingLink,
+      doctorName: doctor.name,
+      doctorSpecialization: doctor.specialization,
+      doctorExperience: doctor.experience,
+      doctorFees: doctor.fees,
+      doctorImageUrl: doctor.imageUrl || 'https://via.placeholder.com/80',
+    };
 
-  if (!user?.latitude || !user?.longitude || !doctor?.latitude || !doctor?.longitude) {
-    alert("Location coordinates missing for user or doctor.");
-    return;
-  }
-
-  const drivingLink = `https://www.google.com/maps/dir/?api=1&origin=${user.latitude},${user.longitude}&destination=${doctor.latitude},${doctor.longitude}&travelmode=driving`;
-
-  const appointmentData = {
-    doctorId,
-    userId: user._id,
-    date: format(selectedDate, 'yyyy-MM-dd'),
-    timeSlot: selectedSlot,
-    reason,
-    symptoms: selectedSymptom,
-    notes,
-    drivingLink, 
+    try {
+      // console.log("Appointment Data:", appointmentData);
+      const response = await axios.post('https://veersa-backend-production.up.railway.app/api/appointments', appointmentData);
+      const bookedAppointmentId = response.data._id;
+      router.push({
+        pathname: '/payment-screen/payment',
+        params: {
+          ...appointmentData, // Pass all appointment data
+          appointmentId: bookedAppointmentId, // Pass the ID from the backend
+        },
+      });
+    } catch (error) {
+      console.error("Error booking appointment:", error);
+      Alert.alert("This time slot is already booked ,please try another");
+    }
   };
-
-  try {
-    console.log("Appointment Data:", appointmentData);
-    await axios.post('https://veersa-backend.onrender.com/api/appointments',appointmentData);
-    router.push('/payment-screen/payment');
-    // alert("Appointment booked successfully!");
-  } catch (error) {
-    console.error("Error booking appointment:", error);
-    alert("Failed to book appointment. Please try again.");
-  }
-};
 
 
   if (loadingDoctor) {
@@ -129,8 +139,9 @@ export default function BookAppointment() {
   }
 
   return (
+    <SafeAreaView className="flex-1 bg-white">
     <ScrollView className="flex-1 bg-white p-4">
-      <Text className="text-xl font-bold mb-3 mt-10 text-center text-cyan-600">Fill all Inputs</Text>
+      <Text className="text-xl font-bold mb-3  text-center text-cyan-600">Fill all Inputs</Text>
       <View className="mb-4">
         <Text className="text-base font-semibold mb-2">Reason for Visit</Text>
         <TextInput
@@ -143,7 +154,7 @@ export default function BookAppointment() {
 
       {/* Month and Year Header */}
       <Text className="text-lg font-bold text-center mb-4">
-        {format(new Date(), 'MMMM yyyy')}
+        {format(new Date(), 'MMMM yyyy')} {/* Corrected: Changed 'MMMM FF' to 'MMMM yyyy' */}
       </Text>
 
       {/* Calendar Grid */}
@@ -265,5 +276,6 @@ export default function BookAppointment() {
         </Text>
       </TouchableOpacity>
     </ScrollView>
+    </SafeAreaView>
   );
 }

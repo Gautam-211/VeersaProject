@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, FlatList, Image, TouchableOpacity, ActivityIndicator, TextInput } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, ActivityIndicator, TextInput, SafeAreaView } from 'react-native';
 import { useRouter } from 'expo-router';
 import { getAllDoctors } from '../../lib/api1';
 import { Ionicons } from '@expo/vector-icons';
@@ -125,6 +125,7 @@ const AllDoctors = () => {
   };
 
   const renderItem = ({ item }) => (
+    <SafeAreaView>
     <View className="flex-row mb-4 p-3 bg-[#E9FAFD] rounded-xl">
       <Image
         source={{ uri: item.imageUrl || 'https://via.placeholder.com/80' }}
@@ -173,6 +174,7 @@ const AllDoctors = () => {
         </View>
       </View>
     </View>
+    </SafeAreaView>
   );
 
   const renderFooter = () => {
@@ -201,8 +203,9 @@ const AllDoctors = () => {
   }
 
   return (
+    <SafeAreaView className="flex-1 bg-white ">
     <View className="flex-1 p-4 bg-white">
-      <Text className="text-xl font-bold mb-4 text-center mt-10 text-cyan-600">All Doctors</Text>
+      <Text className="text-xl font-bold mb-4 text-center mt text-cyan-600">All Doctors</Text>
 
       {/* Search Bar */}
       <View className="flex-row items-center bg-gray-100 rounded-full px-4 py-2 mb-4">
@@ -222,6 +225,7 @@ const AllDoctors = () => {
         ListFooterComponent={renderFooter}
       />
     </View>
+    </SafeAreaView>
   );
 };
 
