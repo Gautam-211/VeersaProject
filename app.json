@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "VeersaProjectWithTailwind",
-    "slug": "VeersaProjectWithTailwind",
+    "name": "AppointMed",
+    "slug": "AppointMed",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "veersaprojectwithtailwind",
+    "scheme": "AppointMed",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -16,7 +16,8 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.gautam211.AppointMed"
     },
     "web": {
       "bundler": "metro",
@@ -34,15 +35,21 @@
           "backgroundColor": "#ffffff"
         }
       ],
-       [
+      [
         "expo-notifications",
         {
-          "mode": "development" 
+          "mode": "development"
         }
       ]
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "a11b0908-a3e2-4690-9174-697cd28ba23e"
+      }
     }
   }
 }
