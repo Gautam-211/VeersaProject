@@ -15,23 +15,23 @@ const GlobalProvider = ({ children }) => {
   const [recommendation, setRecommendation] = useState(null);
   const [diagnosis, setDiagnosis] = useState(null);
 
-  useEffect(() => {
-  const loadUser = async () => {
-    try {
-      const storedUser = await AsyncStorage.getItem('user');
-      if (storedUser) {
-        setUser(JSON.parse(storedUser));
-        setIsLoggedIn(true);
-      }
-    } catch (err) {
-      console.log("Auto-login error", err);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+//   useEffect(() => {
+//   const loadUser = async () => {
+//     try {
+//       const storedUser = await AsyncStorage.getItem('user');
+//       if (storedUser) {
+//         setUser(JSON.parse(storedUser));
+//         setIsLoggedIn(true);
+//       }
+//     } catch (err) {
+//       console.log("Auto-login error", err);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
 
-  loadUser();
-}, []);
+//   loadUser();
+// }, []);
 
   return (
     <GlobalContext.Provider value={{ 
