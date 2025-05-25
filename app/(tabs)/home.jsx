@@ -72,6 +72,7 @@ export default function HomeScreen() {
         <Ionicons name="search" size={20} color="gray" />
         <TextInput
           placeholder="Search a Doctor"
+              placeholderTextColor={"#6b7280"}
           className="ml-2 flex-1 font-['Poppins-Regular'] text-black"
         />
         {/* Microphone icon added */}

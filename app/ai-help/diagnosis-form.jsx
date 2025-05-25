@@ -207,6 +207,7 @@ export default function DiagnosisFormScreen() {
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Age"
+              placeholderTextColor={"#6b7280"}
               keyboardType="numeric"
               value={age}
               onChangeText={setAge}
@@ -214,6 +215,7 @@ export default function DiagnosisFormScreen() {
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Gender (e.g., male, female)"
+              placeholderTextColor={"#6b7280"}
               value={gender}
               onChangeText={setGender}
             />
@@ -221,6 +223,7 @@ export default function DiagnosisFormScreen() {
               <TextInput
                 className="flex-1 border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
                 placeholder="Height (cm)"
+                placeholderTextColor={"#6b7280"}
                 keyboardType="numeric"
                 value={height}
                 onChangeText={setHeight}
@@ -228,6 +231,7 @@ export default function DiagnosisFormScreen() {
               <TextInput
                 className="flex-1 border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
                 placeholder="Weight (kg)"
+              placeholderTextColor={"#6b7280"}
                 keyboardType="numeric"
                 value={weight}
                 onChangeText={setWeight}
@@ -236,18 +240,21 @@ export default function DiagnosisFormScreen() {
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Medical History (comma-separated)"
+              placeholderTextColor={"#6b7280"}
               value={medicalHistory}
               onChangeText={setMedicalHistory}
             />
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Current Medications (comma-separated)"
+              placeholderTextColor={"#6b7280"}
               value={currentMedications}
               onChangeText={setCurrentMedications}
             />
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Allergies (comma-separated)"
+              placeholderTextColor={"#6b7280"}
               value={allergies}
               onChangeText={setAllergies}
             />
@@ -269,18 +276,21 @@ export default function DiagnosisFormScreen() {
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Alcohol (e.g., never, occasional)"
+              placeholderTextColor={"#6b7280"}
               value={alcohol}
               onChangeText={setAlcohol}
             />
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Exercise (e.g., none, moderate, intense)"
+              placeholderTextColor={"#6b7280"}
               value={exercise}
               onChangeText={setExercise}
             />
             <TextInput
               className="border border-gray-300 rounded-lg px-3 py-2 mb-4 text-black"
               placeholder="Diet (e.g., balanced, vegetarian)"
+              placeholderTextColor={"#6b7280"}
               value={diet}
               onChangeText={setDiet}
             />
