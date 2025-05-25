@@ -12,8 +12,6 @@ import { useRouter } from 'expo-router';
 import { getAllDoctors } from '../../lib/api1'; // Assuming api1 is correct
 import { useGlobalContext } from "../../context/GlobalProvider"; // Assuming GlobalProvider is correct
 import { categories } from '../../constants/constant'; // Assuming categories constant is correct
-
-// Import local image assets
 import userImage from '../../assets/images/user.png';
 import bannerImage from '../../assets/images/bannerdoctor.png'; // Your existing banner image
 
@@ -28,6 +26,7 @@ export default function HomeScreen() {
         const data = await getAllDoctors();
         setDoctors(data);
       } catch (error) {
+        alert("there is error in this page !")
         console.error('Error fetching doctors:', error);
       }
     };
