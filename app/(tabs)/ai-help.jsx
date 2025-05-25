@@ -1,6 +1,6 @@
 import { View, Text, TouchableOpacity, ScrollView, SafeAreaView } from 'react-native';
 import { useGlobalContext } from "../../context/GlobalProvider";
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'; // Import MaterialCommunityIcons for variety
 import { router } from 'expo-router';
 
 const AIHelpScreen = () => {
@@ -21,18 +21,32 @@ const AIHelpScreen = () => {
           How can AI help you today?
         </Text>
 
-        {/* Menu Card */}
+        {/* Menu Card - Specialization Recommendation */}
         <TouchableOpacity
-            className="mx-4 mb-4 rounded-xl flex-row items-center bg-teal-50 py-6 px-4 shadow-lg shadow-teal-400/10"
-            activeOpacity={0.85}
-            onPress={() => router.push('/ai-help/recommendation-form')}
+          className="mx-4 mb-4 rounded-xl flex-row items-center bg-teal-50 py-6 px-4 shadow-lg shadow-teal-400/10"
+          activeOpacity={0.85}
+          onPress={() => router.push('/ai-help/recommendation-form')}
         >
-        <View className="bg-teal-400 p-3 rounded-full mr-5">
+          <View className="bg-teal-400 p-3 rounded-full mr-5">
             <Ionicons name="school-outline" size={28} color="#fff" />
-        </View>
-        <Text className="text-lg font-bold text-slate-800 flex-1 flex-shrink">
+          </View>
+          <Text className="text-lg font-bold text-slate-800 flex-1 flex-shrink">
             Get Specialization Recommendation
-        </Text>
+          </Text>
+        </TouchableOpacity>
+
+        {/* Menu Card - AI Diagnosis */}
+        <TouchableOpacity
+          className="mx-4 mb-4 rounded-xl flex-row items-center bg-teal-50 py-6 px-4 shadow-lg shadow-teal-400/10"
+          activeOpacity={0.85}
+          onPress={() => router.push('/ai-help/diagnosis-form')}
+        >
+          <View className="bg-teal-400 p-3 rounded-full mr-5">
+            <MaterialCommunityIcons name="stethoscope" size={28} color="#fff" />
+          </View>
+          <Text className="text-lg font-bold text-slate-800 flex-1 flex-shrink">
+            AI Diagnosis
+          </Text>
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>

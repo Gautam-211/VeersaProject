@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, router } from 'expo-router';
@@ -36,8 +37,7 @@ export default function SignUpScreen() {
     alert('Signup successful!');
     router.replace('/sign-in');
   } catch (error) {
-    console.error('Signup error:', error);
-    alert(error.message || 'Signup failed. Please try again.');
+    Alert.alert(error.message || 'Signup failed. Please try again.');
   } finally {
     setIsLoading(false);
   }

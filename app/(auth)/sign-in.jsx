@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
+  Alert,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Link, useRouter } from 'expo-router';
@@ -33,8 +34,7 @@ const handleSignIn = async () => {
     // Navigate to home/dashboard
     router.replace('/home');
   } catch (error) {
-    console.error('Login error:', error);
-    alert(error.message || 'Something went wrong. Please try again.');
+    Alert.alert(error.message || 'Something went wrong. Please try again.');
   } finally {
     setIsLoading(false);
   }
