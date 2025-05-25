@@ -133,7 +133,7 @@ export default function NotificationScheduler() {
             content: {
               title: "Upcoming Appointment Reminder!",
               // Updated body to reflect 1 hour 20 minutes
-              body: `Your appointment with ${doctorName} is in less than 1 hour and 20 minutes, at ${timeSlot}. You can visit through this link: ${drivingLink}.`,
+              body: `Your appointment with ${doctorName} is in less than 1 hour, at ${timeSlot}. You can visit through this link: ${drivingLink}.`,
               data: { appointmentId: id, doctorName: doctorName, drivingLink: drivingLink }, // Also pass drivingLink in data
             },
             trigger: {
