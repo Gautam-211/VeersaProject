@@ -12,23 +12,26 @@ const GlobalProvider = ({ children }) => {
   const [appointments, setAppointments] = useState([]);
   const [recentAppointment, setRecentAppointment] = useState(null); 
   const [recommendation, setRecommendation] = useState(null);
-  useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const storedUser = await AsyncStorage.getItem('user');
-        if (storedUser) {
-          setUser(JSON.parse(storedUser));
-          setIsLoggedIn(true);
-        }
-      } catch (err) {
-        console.log("Auto-login error", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+  const [diagnosis, setDiagnosis] = useState(null);
 
-    loadUser();
-  }, []);
+//   useEffect(() => {
+//   const loadUser = async () => {
+//     try {
+//       const storedUser = await AsyncStorage.getItem('user');
+//       if (storedUser) {
+//         setUser(JSON.parse(storedUser));
+//         setIsLoggedIn(true);
+//       }
+//     } catch (err) {
+//       console.log("Auto-login error", err);
+//     } finally {
+//       setIsLoading(false);
+//     }
+//   };
+
+//   loadUser();
+// }, []);
+
 
   return (
     <GlobalContext.Provider
@@ -43,9 +46,10 @@ const GlobalProvider = ({ children }) => {
         recentAppointment,
         setRecentAppointment, 
         recommendation,
-        setRecommendation
-      }}
-    >
+        setRecommendation,
+        diagnosis,
+        setDiagnosis
+     }}>
       {children}
     </GlobalContext.Provider>
   );

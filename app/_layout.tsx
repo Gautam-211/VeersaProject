@@ -42,6 +42,8 @@ export default function RootLayout() {
                 <Stack.Screen name='payment-success/successpage' options={{headerShown:false}}/>
           <Stack.Screen name='ai-help/recommendation-form' options={{headerShown:false}}/>
           <Stack.Screen name='ai-help/analysis' options={{headerShown:false}}/>
+          <Stack.Screen name='ai-help/diagnosis-form' options={{headerShown:false}}/>
+          <Stack.Screen name='ai-help/diagnosis' options={{headerShown:false}}/>
 
         </Stack>
         <StatusBar style="auto" />
