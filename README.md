@@ -1,4 +1,4 @@
-# 🩺 AppointMed – Smart Medical Appointment App (Backend)
+# 🩺 AppointMed – Smart Medical Appointment App (Frontend)
 
 This repository contains the backend code for **AppointMed**, a full-stack, AI-assisted medical appointment mobile application. The backend enables user management, doctor discovery based on symptoms and geolocation, and appointment scheduling features.
 
