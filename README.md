@@ -1,50 +1,97 @@
-# Welcome to your Expo app 👋
+# 🩺 AppointMed – Smart Medical Appointment App (Backend)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+This repository contains the backend code for **AppointMed**, a full-stack, AI-assisted medical appointment mobile application. The backend enables user management, doctor discovery based on symptoms and geolocation, and appointment scheduling features.
 
-## Get started
+---
 
-1. Install dependencies
+## 📌 Project Overview
 
-   ```bash
-   npm install
-   ```
+AppointMed allows users to:
+- Register, log in, and securely manage their profile
+- Input symptoms to receive AI-generated doctor suggestions
+- Sort and filter doctors based on specialization and proximity
+- Book, reschedule, and cancel appointments
 
-2. Start the app
+Admins can:
+- Manage doctor profiles
+- Monitor system metrics
 
-   ```bash
-   npx expo start
-   ```
+---
 
-In the output, you'll find options to open the app in a
+## ✅ Functional Requirements
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- User authentication and registration
+- Symptom-based AI doctor suggestions
+- Geolocation-based doctor sorting
+- Doctor filtering by specialization and distance
+- Appointment booking, rescheduling, and cancellation
+- Admin dashboard for doctor and metric management
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+---
 
-## Get a fresh project
+## 🔐 Non-Functional Requirements
 
-When you're ready, run:
+- Scalable RESTful API architecture
+- Optimized response times via backend-side pagination and filtering
+- Token-based authentication (secure)
+- Mobile-first UX design
+- High availability via **Railway** hosting
 
-```bash
-npm run reset-project
-```
+---
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🧱 Tech Stack Used
 
-## Learn more
+### 📌 Backend:
+- Node.js with Express.js
+- MongoDB Atlas
+- Languages: JavaScript & TypeScript
 
-To learn more about developing your project with Expo, look at the following resources:
+### 🤖 AI Assistance:
+- Gemini API – Doctor suggestions based on symptoms
+- RapidAPI Med API – Diagnosis and condition mapping
+- Replicate API – Additional AI tasks
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### 🌍 Public APIs:
+- OpenCage API – Address to coordinates
+- OpenStreetMap API – Geolocation sorting
 
-## Join the community
+### 🛠 Tools & Management:
+- Git & GitHub – Branching strategy with `develop` and feature branches
+- Postman – Shared workspace for API testing
+- Trello – Task and API tracking
+- Figma – UI design and prototyping
+- Railway & Render – Backend hosting
 
-Join our community of developers creating universal apps.
+---
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## 📏 Coding Protocols & Best Practices
+
+1. Modular RESTful backend architecture
+2. 1000+ doctor dataset for production readiness
+3. API services decoupled for frontend reusability
+4. Backend-side filtering & pagination for performance
+5. Git workflow with separate dev/feature branches
+6. Thorough API testing before merges
+7. Shared Postman collection for collaboration
+8. Trello board maintained with cURLs and task tracking
+9. Deployed via Railway for persistent uptime
+10. Consistent error handling with proper status codes
+
+---
+
+## 📎 Additional Resources
+
+- 📄 **Project Documentation**:  
+  [View on Google Drive](https://drive.google.com/file/d/1I22vA-GGSCmgwxKFoFUxdnDN0wEsw2H_/view?usp=drive_link)
+
+- 🎨 **Figma Design**:  
+  [Doctor Appointment App UI Kit](https://www.figma.com/design/BoGSswg5qWtmEwiz9hRfBh/Doctor-Appointment---Consultation-App-UI-Kit-%7C-Case-Study--Community-?node-id=0-1&p=f&t=YChGVDzwc1gXydu8-0)
+
+- 🧪 **Manual Testing Report**:  
+  [Download on Google Drive](https://drive.google.com/file/d/1F4oDQ5IY-DWwCRengkeOUgL6ysz474ks/view?usp=sharing)
+
+---
+
+## 📬 Contact
+
+For any questions, please open an issue or reach out via the project's GitHub repository.
