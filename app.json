@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "VeersaProjectWithTailwind",
-    "slug": "VeersaProjectWithTailwind",
+    "name": "AppointMed",
+    "slug": "AppointMed",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "veersaprojectwithtailwind",
+    "scheme": "appointmed",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

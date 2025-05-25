@@ -174,7 +174,7 @@ export default function SymptomFormScreen() {
             </Text>
 
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-3"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-3 text-black"
               placeholder="Age"
               keyboardType="numeric"
               value={userAge}
@@ -182,14 +182,14 @@ export default function SymptomFormScreen() {
             />
 
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-3"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-3 text-black"
               placeholder="Gender (e.g., male, female)"
               value={userGender}
               onChangeText={setUserGender}
             />
 
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-6"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-6 text-black"
               placeholder="Medical History (comma-separated)"
               value={medicalHistory}
               onChangeText={setMedicalHistory}

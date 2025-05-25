@@ -23,7 +23,7 @@ const AIHelpScreen = () => {
 
         {/* Menu Card - Specialization Recommendation */}
         <TouchableOpacity
-          className="mx-4 mb-4 rounded-xl flex-row items-center bg-teal-50 py-6 px-4 shadow-lg shadow-teal-400/10"
+          className="mx-4 mb-4 rounded-xl flex-row items-center bg-teal-50 py-6 px-4 shadow-lg shadow-teal-400/10 border-teal-500"
           activeOpacity={0.85}
           onPress={() => router.push('/ai-help/recommendation-form')}
         >

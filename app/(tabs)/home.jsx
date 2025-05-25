@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  Alert,
 } from 'react-native';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -55,12 +56,15 @@ export default function HomeScreen() {
             {user?.name || 'John Doe William'} 
           </Text>
         </View>
-        <Ionicons
+        <TouchableOpacity onPress={() => Alert.alert('Notifications', 'No new notifications yet!')} className="ml-auto">
+          <Ionicons
           name="notifications-outline"
           size={24}
           color="black"
           className="ml-auto"
         />
+        </TouchableOpacity>
+        
       </View>
 
       {/* Search Bar */}
@@ -68,7 +72,7 @@ export default function HomeScreen() {
         <Ionicons name="search" size={20} color="gray" />
         <TextInput
           placeholder="Search a Doctor"
-          className="ml-2 flex-1 font-['Poppins-Regular']"
+          className="ml-2 flex-1 font-['Poppins-Regular'] text-black"
         />
         {/* Microphone icon added */}
         <Ionicons name="mic-outline" size={20} color="gray" className="ml-2" />
@@ -100,11 +104,6 @@ export default function HomeScreen() {
       {/* Categories */}
       <View className="flex-row justify-between items-center px-4 mb-3">
         <Text className="text-cyan-500 font-medium">Categories</Text>
-        <TouchableOpacity>
-          <Text className="text-cyan-500 font-medium">
-            See All
-          </Text>
-        </TouchableOpacity>
       </View>
       <ScrollView
         horizontal
@@ -117,7 +116,7 @@ export default function HomeScreen() {
             className="w-[150px] h-[50px] bg-[#7BC1B7] justify-center items-center rounded-lg mr-2" // Wider, centered text
             onPress={() => router.push(`/categories/${category}`)}
           >
-            <Text className="text-center font-['Poppins-Medium'] font-semibold">
+            <Text className="text-center font-['Poppins-Medium'] font-semibold text-white font-semibold">
               {category}
             </Text>
           </TouchableOpacity>

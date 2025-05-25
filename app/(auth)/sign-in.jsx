@@ -73,7 +73,7 @@ const handleSignIn = async () => {
             <Text className="text-base font-semibold text-black mb-2">Password</Text>
             <View className="flex-row items-center border border-gray-200 rounded-lg bg-gray-100">
               <TextInput
-                className="flex-1 h-12 px-4 text-base"
+                className="flex-1 h-12 px-4 text-base text-black"
                 placeholder="Enter Your Password"
                 placeholderTextColor="#999"
                 value={password}

@@ -205,28 +205,28 @@ export default function DiagnosisFormScreen() {
             {/* PATIENT INFO FIELDS */}
             <Text className="text-lg font-semibold mt-6 mb-2">Patient Info</Text>
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Age"
               keyboardType="numeric"
               value={age}
               onChangeText={setAge}
             />
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Gender (e.g., male, female)"
               value={gender}
               onChangeText={setGender}
             />
             <View className="flex-row gap-2">
               <TextInput
-                className="flex-1 border border-gray-300 rounded-lg px-3 py-2 mb-2"
+                className="flex-1 border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
                 placeholder="Height (cm)"
                 keyboardType="numeric"
                 value={height}
                 onChangeText={setHeight}
               />
               <TextInput
-                className="flex-1 border border-gray-300 rounded-lg px-3 py-2 mb-2"
+                className="flex-1 border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
                 placeholder="Weight (kg)"
                 keyboardType="numeric"
                 value={weight}
@@ -234,19 +234,19 @@ export default function DiagnosisFormScreen() {
               />
             </View>
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Medical History (comma-separated)"
               value={medicalHistory}
               onChangeText={setMedicalHistory}
             />
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Current Medications (comma-separated)"
               value={currentMedications}
               onChangeText={setCurrentMedications}
             />
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Allergies (comma-separated)"
               value={allergies}
               onChangeText={setAllergies}
@@ -267,19 +267,19 @@ export default function DiagnosisFormScreen() {
               </TouchableOpacity>
             </View>
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Alcohol (e.g., never, occasional)"
               value={alcohol}
               onChangeText={setAlcohol}
             />
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-2"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-2 text-black"
               placeholder="Exercise (e.g., none, moderate, intense)"
               value={exercise}
               onChangeText={setExercise}
             />
             <TextInput
-              className="border border-gray-300 rounded-lg px-3 py-2 mb-4"
+              className="border border-gray-300 rounded-lg px-3 py-2 mb-4 text-black"
               placeholder="Diet (e.g., balanced, vegetarian)"
               value={diet}
               onChangeText={setDiet}
